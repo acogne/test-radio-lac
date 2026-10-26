@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Radio Lac, maquette</title>
+<meta name="description" content="Maquette du futur site de Radio Lac, recentré sur la musique et le divertissement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="img-web/Logo-Radio-Lac-portrait.png">
+</head>
+<body data-page="home">
+
+<div id="site-header"></div>
+
+<main>
+
+  <!-- DIRECT -->
+  <section class="hero" data-effort="auto" data-note="Automatique : grille saisie une fois par saison + titrage en temps réel">
+    <div class="wrap hero-inner">
+      <div class="hero-hosts" id="heroHosts"></div>
+      <div class="hero-show">
+        <p class="live-pill"><span class="live-dot"></span>En direct <span id="heroTime"></span></p>
+        <h1 id="heroShow">Radio Lac</h1>
+        <p class="hero-meta"><span id="heroHost"></span><span class="hero-next">Ensuite : <strong id="heroNext"></strong></span></p>
+        <div class="progress" aria-hidden="true"><span id="heroProgress"></span></div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-song">
+          <div id="heroCover"></div>
+          <div class="hero-song-text">
+            <p class="hero-song-label">À l'antenne</p>
+            <p class="hero-song-title" id="heroTitle"></p>
+            <p class="hero-song-artist" id="heroArtist"></p>
+          </div>
+        </div>
+        <button class="btn-big js-play">
+          <span class="play-ico" aria-hidden="true"></span><span class="js-play-label" data-label="Écouter le direct">Écouter le direct</span>
+        </button>
+      </div>
+    </div>
+    <svg class="lake" id="lake" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </section>
+
+  <!-- GRILLE -->
+  <section id="grille" class="section" data-effort="auto" data-note="Automatique : une fiche par émission, mise à jour à chaque saison">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Aujourd'hui sur Radio Lac</h2>
+        <a href="emissions.html" class="more">Toutes les émissions</a>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <!-- TITRES -->
+  <section id="titres" class="section section-tint" data-effort="auto" data-note="Automatique : branché sur le flux de titrage déjà en place">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>C'était quoi ce titre ?</h2>
+        <div class="head-actions">
+          <a href="playlist.html" class="more">Rechercher par date et heure</a>
+          <div class="carousel-nav">
+            <button class="arrow" id="songPrev" aria-label="Titres plus récents" disabled>‹</button>
+            <button class="arrow" id="songNext" aria-label="Titres plus anciens">›</button>
+          </div>
+        </div>
+      </div>
+      <ol class="carousel" id="songCarousel" aria-label="Les 10 derniers titres diffusés"></ol>
+    </div>
+  </section>
+
+  <!-- ACTU -->
+  <section id="actu" class="section" data-effort="light" data-note="Léger : concours et vie de l'antenne, publiés au fil de l'eau">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Actu</h2>
+        <a href="actu.html" class="more">Toute l'actu</a>
+      </div>
+      <div class="articles" id="articles"></div>
+    </div>
+  </section>
+
+  <!-- PODCASTS -->
+  <section id="podcasts" class="section section-tint" data-effort="auto" data-note="Automatique : alimenté par le pipeline de publication des podcasts">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Podcasts</h2>
+        <div class="head-actions">
+          <div class="filters" id="podcastFilters" role="tablist" aria-label="Filtrer les podcasts par émission"></div>
+          <a href="podcasts.html" class="more">Tous les podcasts</a>
+        </div>
+      </div>
+      <div class="replays" id="replays"></div>
+    </div>
+  </section>
+
+  <!-- WEBRADIOS -->
+  <section id="webradios" class="section" data-effort="auto" data-note="Automatique : une fois créées, les webradios tournent seules">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Nos webradios</h2>
+        <div class="head-actions">
+          <a href="webradios.html" class="more">Toutes les webradios</a>
+          <div class="carousel-nav">
+            <button class="arrow" id="wrPrev" aria-label="Webradios précédentes" disabled>‹</button>
+            <button class="arrow" id="wrNext" aria-label="Webradios suivantes">›</button>
+          </div>
+        </div>
+      </div>
+      <ol class="carousel wr-carousel" id="wrCarousel" aria-label="Nos webradios"></ol>
+    </div>
+  </section>
+
+  <!-- PARTOUT -->
+  <section id="partout" class="section section-tint">
+    <div class="wrap everywhere">
+      <div>
+        <h2>Radio Lac, partout avec vous</h2>
+        <p class="lede">En DAB+ dans toute la Suisse romande, en FM de Genève à Payerne, sur l'app, sur votre enceinte connectée. Et pour parler à l'antenne, un message suffit.</p>
+        <a href="frequences.html" class="more ew-more">Toutes nos fréquences</a>
+      </div>
+      <div class="everywhere-cards">
+        <a href="https://api.whatsapp.com/send?phone=41799183000" class="ew-card ew-wa"><strong>WhatsApp de l'antenne</strong><span>079 918 30 00</span></a>
+        <a href="tel:0842918918" class="ew-card"><strong>Appeler l'antenne</strong><span>0842 918 918</span></a>
+        <a data-app="ios" class="ew-card"><strong>App iPhone</strong><span>App Store</span></a>
+        <a data-app="android" class="ew-card"><strong>App Android</strong><span>Google Play</span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

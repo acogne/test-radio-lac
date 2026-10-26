@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playlist, Radio Lac</title>
+<meta name="description" content="Retrouvez les titres diffusés sur Radio Lac par date et par heure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="img-web/Logo-Radio-Lac-portrait.png">
+</head>
+<body data-page="playlist">
+
+<div id="site-header"></div>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <h1>C'était quoi ce titre ?</h1>
+      <p class="lede">Vous avez entendu une chanson sur Radio Lac ? Choisissez le jour et l'heure, on vous la retrouve.</p>
+      <form class="pl-search" id="plSearch">
+        <label>Jour
+          <select id="plDay"></select>
+        </label>
+        <label>Heure
+          <input type="time" id="plTime" required>
+        </label>
+        <button type="submit">Afficher les titres</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section pl-results" data-effort="auto" data-note="Automatique : historique du titrage, aucune saisie">
+    <div class="wrap">
+      <p class="pl-context" id="plContext" role="status"></p>
+      <ol class="pl-list" id="plList"></ol>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="data.js"></script>
+<script src="layout.js"></script>
+<script src="playlist.js"></script>
+</body>
+</html>

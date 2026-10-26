@@ -1,0 +1,43 @@
+Grille antenne
+
+Du lundi au mercredi
+00h-06h: Le meilleur de la musique
+06h-10h: Le meilleur des réveils (Fabien et Carole)
+10h-13h: Il suffit de demander (Fred)
+13h-16h: Le meilleur de la musique 
+16h-20h: J'peux pas j'ai Radio Lac (Sophie)
+20h-22h: Studio Vinyles 
+22h-23h: Pépites 80
+23h-00h: Le meilleur de la musique
+
+Jeudi
+00h-06h: Le meilleur de la musique
+06h-10h: Le meilleur des réveils (Fabien et Carole)
+10h-13h: Il suffit de demander (Fred)
+13h-16h: Le meilleur de la musique 
+16h-20h: J'peux pas j'ai Radio Lac (Sophie)
+20h-22h: Studio Vinyles 
+22h-01h: Lac Fever
+
+Vendredi
+01h-06h: Le meilleur de la musique
+06h-10h: Le meilleur des réveils (Fabien et Carole)
+10h-13h: Il suffit de demander (Fred)
+13h-16h: Le meilleur de la musique
+16h-18h: J'peux pas j'ai Radio Lac (Sophie)
+18h-18h30: Les Têtes à Clac (Sophie)
+18h30-20h: J'peux pas j'ai Radio Lac (Sophie)
+20h-22h: Studio Vinyles 
+22h-01h: Lac Fever
+
+Samedi
+01h-06h: Le meilleur de la musique
+06h-20h: Radio Lac week-end
+20h-22h: Studio Vinyles
+22h-01h: Lac Fever
+
+Dimanche
+01h-06h: Le meilleur de la musique
+06h-20h: Radio Lac week-end
+20h-22h: Studio Vinyles
+22h-00h: Le meilleur de la musique

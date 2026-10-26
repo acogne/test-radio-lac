@@ -1,0 +1,23 @@
+Catégorie: Concours
+Titre: Gagnez vos billets pour Servette – OH Louvain !
+Date: 26 octobre 2026
+
+Texte de l'article:
+<strong>Une soirée de football européen vous attend à Genève! Le mercredi 28 octobre à 18h45, le Servette FC Chênois Féminin accueille OH Louvain au Stade de Genève pour la troisième journée de la Ligue des champions féminine. Et Radio Lac vous offre la possibilité d’assister à cette rencontre!</strong></p>
+Les Servettiennes ont déjà prouvé qu’elles avaient du répondant sur la scène européenne. Après avoir éliminé le Sparta Prague grâce à une victoire 3-0 au match retour, les Grenat ont décroché leur place dans la phase de ligue. En championnat, elles ont également signé de belles victoires, notamment un succès 4-1 face à Lucerne.</p>
+<p data-pm-slice="1 1 []">Face à OH Louvain, les Genevoises auront à cœur de rebondir et de décrocher leurs premiers points dans cette phase de ligue. Un défi de taille, mais aussi une belle occasion de compter sur le soutien du public pour faire la différence !</p>
+Envie de vivre cette affiche européenne en direct? Participez à notre concours et tentez de remporter vos billets pour encourager les Servettiennes au Stade de Genève.
+<h2>Ce que vous pouvez gagner</h2>
+<ul data-spread="false">
+ 	<li><strong>2 places</strong> match SFC chênois Feminin vs OH Louvain</li>
+ 	<li><strong>Date: </strong>Mercredi 28 octobre</li>
+ 	<li><strong>Heure: </strong>18h45</li>
+ 	<li><strong>Lieu: </strong>Stade de Genève</li>
+</ul>
+<h2>Comment participer?</h2>
+Vous pouvez tenter votre chance de deux façons:
+<ul data-spread="false">
+ 	<li>Écoutez Radio Lac tout au long de la journée pour participer à l’antenne.</li>
+ 	<li>Remplissez le formulaire disponible en bas de cette page</li>
+</ul>
+<p>[gravityform id="114" title="true"]</p>

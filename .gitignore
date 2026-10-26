@@ -1,0 +1,7 @@
+# Originaux lourds : le site n'utilise que img-web/
+img/
+
+# Outils et fichiers de travail
+outils/
+PROMPT-VSCODE.md
+radiolac-apercu-v2.png
