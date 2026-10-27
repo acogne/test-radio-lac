@@ -14,11 +14,18 @@
   const forced = params.get("now") ? new Date(params.get("now")) : null;
   const offset = forced && !isNaN(forced) ? forced.getTime() - Date.now() : 0;
   const now = () => new Date(Date.now() + offset);
-  // Garde ?now= en passant d'une page à l'autre
-  const withNow = (href) => {
-    if (!offset || !/^[\w-]+\.html/.test(href)) return href;
+  // Habillage publicitaire de démonstration : ?habillage=1
+  let skin = params.get("habillage") === "1";
+  // Garde ?now= et ?habillage= en passant d'une page à l'autre
+  const withState = (href) => {
+    if (!/^[\w-]+\.html/.test(href)) return href;
     const [path, hash = ""] = href.split("#");
-    return `${path}${path.includes("?") ? "&" : "?"}now=${encodeURIComponent(params.get("now"))}${hash ? `#${hash}` : ""}`;
+    const [file, query = ""] = path.split("?");
+    const q = new URLSearchParams(query);
+    if (offset) q.set("now", params.get("now"));
+    if (skin) q.set("habillage", "1"); else q.delete("habillage");
+    const qs = String(q);
+    return `${file}${qs ? `?${qs}` : ""}${hash ? `#${hash}` : ""}`;
   };
 
   /* ---------- Images : versions optimisées de img-web/ ---------- */
@@ -104,6 +111,47 @@
       <span class="r-title">${esc(e.title).replace(/ ([?!:;])/g, "&nbsp;$1")}</span>
       <span class="r-meta">${relDay(e.date)}</span></${link ? "a" : "article"}>`;
 
+  /* ---------- Vidéos YouTube : miniature, lecteur chargé au clic ---------- */
+  const thumb = (id, q) => `https://i.ytimg.com/vi/${id}/${q}.jpg`;
+  const videoThumb = (id, q) => `<img src="${thumb(id, q)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${thumb(id, "hqdefault")}'">`;
+  const videoButton = (v) => `<button class="video-play" aria-label="Lire la vidéo : ${esc(v.title)}">${videoThumb(v.id, "maxresdefault")}<span class="video-btn" aria-hidden="true"></span></button>`;
+  const videoFrame = (v) => `<div class="video" data-video="${v.id}">${videoButton(v)}</div>`;
+  // Une seule vidéo à la fois : les autres lecteurs redeviennent des miniatures
+  function playVideo(box) {
+    $$(".video").forEach((b) => { if (b !== box && b.querySelector("iframe")) b.innerHTML = videoButton(D.videos.find((v) => v.id === b.dataset.video)); });
+    const v = D.videos.find((x) => x.id === box.dataset.video);
+    box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  }
+  document.addEventListener("click", (e) => { const b = e.target.closest(".video-play"); if (b) playVideo(b.parentNode); });
+
+  /* ---------- Publicité : emplacements de démonstration (data.js) ---------- */
+  const page = document.body.dataset.page || "home";
+  const AD = D.ads, BPS = ["mobile", "tablet", "desktop"];
+  const adSize = (b) => AD.slots.map((s) => `.ad-${s.id} .ad-box{width:${AD.formats[s[b]].w}px;height:${AD.formats[s[b]].h}px}`).join("");
+  const skinMargin = `(100vw - ${AD.skin.content}px) / 4`;
+  // Tailles réservées en dur pour chaque écran, et habillage au-delà de la largeur du contenu
+  document.head.insertAdjacentHTML("beforeend", `<style>
+    .ad-f-mobile{display:block}${adSize("mobile")}
+    @media (min-width:${AD.breakpoints.tablet}px){.ad-f-mobile{display:none}.ad-f-tablet{display:block}${adSize("tablet")}}
+    @media (min-width:${AD.breakpoints.desktop}px){.ad-f-tablet{display:none}.ad-f-desktop{display:block}${adSize("desktop")}}
+    @media (min-width:${AD.skin.content + 1}px){
+      body.skin .skin-bg{display:block}
+      body.skin .skin-top{display:grid;height:${AD.skin.top}px}
+      body.skin .site-header,body.skin main,body.skin .site-footer{max-width:${AD.skin.content}px;margin-left:auto;margin-right:auto}
+      .skin-bg span:first-child{left:calc(${skinMargin})}.skin-bg span:last-child{left:calc(100vw - ${skinMargin})}
+    }</style>`);
+  function renderAds() {
+    AD.slots.filter((s) => s.pages.includes(page)).forEach((s) => {
+      const target = $(s.after); if (!target) return;
+      const ad = `<div class="ad ad-${s.id}" data-effort="com" data-note="Commercial : emplacement vendu par la régie">
+        <p class="ad-label">Publicité</p>
+        <div class="ad-box">${BPS.map((b) => { const f = AD.formats[s[b]]; return `<span class="ad-f ad-f-${b}">${f.name} ${f.w}×${f.h}</span>`; }).join("")}</div>
+      </div>`;
+      target.insertAdjacentHTML("afterend", s.band ? `<div class="ad-band"><div class="wrap">${ad}</div></div>` : ad);
+      if (s.inGrid) target.parentNode.classList.add("has-ad");
+    });
+  }
+
   /* ---------- Titres : simulation déterministe, un titre toutes les 4 min ---------- */
   const SLOT = 4 * 60000;
   const songAtSlot = (k) => D.songs[((k * 7) % D.songs.length + D.songs.length) % D.songs.length];
@@ -127,8 +175,8 @@
   }
 
   /* ---------- Header / footer / player ---------- */
-  const page = document.body.dataset.page || "home";
   const radioPages = ["emissions", "animateurs", "frequences", "actu", "article"];
+  const podcastPages = ["podcasts", "videos"];
   const cur = (keys) => ([].concat(keys).includes(page) ? ' aria-current="page"' : "");
   const navItem = (href, label, key) => `<a href="${href}" class="nav-link${page === key ? " is-active" : ""}"${cur(key)}>${label}</a>`;
   // Réseaux sociaux (data.js) : seuls ceux qui ont une URL sont affichés
@@ -142,7 +190,10 @@
   <div class="proto-bar">
     <span>${esc(bar)}</span>
     <button id="annotToggle" class="annot-toggle" aria-pressed="false">Voir l'effort de production par bloc</button>
+    <button id="skinToggle" class="annot-toggle" aria-pressed="${skin}" title="Visible sur un écran de plus de ${AD.skin.content} px de large">${skin ? "Masquer l'habillage" : "Voir avec habillage"}</button>
   </div>
+  <div class="skin-bg" aria-hidden="true"><span>Habillage</span><span>Habillage</span></div>
+  <div class="skin-top" data-effort="com" data-note="Commercial : habillage vendu par la régie"><span>Habillage : fond de page et espace de ${AD.skin.top} px en haut</span></div>
   <header class="site-header">
     <div class="wrap header-inner">
       <a href="index.html" class="logo" aria-label="Radio Lac, accueil">
@@ -159,7 +210,13 @@
             <a href="actu.html"${cur(["actu", "article"])}>Actu</a>
           </div>
         </div>
-        ${navItem("podcasts.html", "Podcasts", "podcasts")}
+        <div class="has-sub">
+          <button class="nav-link sub-toggle${podcastPages.includes(page) ? " is-active" : ""}" aria-expanded="false">Podcasts <span class="caret" aria-hidden="true"></span></button>
+          <div class="sub">
+            <a href="podcasts.html"${cur("podcasts")}>Podcasts audio</a>
+            <a href="videos.html"${cur("videos")}>Vidéos</a>
+          </div>
+        </div>
         ${navItem("playlist.html", "Playlist", "playlist")}
         ${navItem("concours.html", "Concours", "concours")}
         ${navItem("webradios.html", "Webradios", "webradios")}
@@ -183,7 +240,7 @@
         <div><p class="fc-title">La radio</p>
           <a href="emissions.html">Émissions</a><a href="animateurs.html">Animateurs</a><a href="frequences.html">Fréquences &amp; DAB+</a><a href="actu.html">Actu</a><a href="index.html#partout">Contact</a></div>
         <div><p class="fc-title">Écouter</p>
-          <a href="playlist.html">C'était quoi ce titre ?</a><a href="podcasts.html">Podcasts</a><a href="webradios.html">Webradios</a><a data-app="ios">App iPhone</a><a data-app="android">App Android</a></div>
+          <a href="playlist.html">C'était quoi ce titre ?</a><a href="podcasts.html">Podcasts</a><a href="videos.html">Vidéos</a><a href="webradios.html">Webradios</a><a data-app="ios">App iPhone</a><a data-app="android">App Android</a></div>
         <div><p class="fc-title">Media One Group</p>
           <a href="http://www.mediaone.ch">Publicité</a><a href="https://www.mediaonegroup.ch/emplois-et-stages/">Emplois</a><span class="fc-static">Règlements des concours</span><span class="fc-static">Données personnelles</span></div>
       </div>
@@ -202,6 +259,7 @@
     <p class="al-title">Effort de production</p>
     <p><span class="sw sw-auto"></span>Automatique</p>
     <p><span class="sw sw-light"></span>Léger, au fil de l'eau</p>
+    <p><span class="sw sw-com"></span>Commercial : publicité</p>
     <p class="al-sum" id="annotSum"></p>
   </div>`;
 
@@ -226,32 +284,46 @@
     $$(".js-play-label").forEach((l) => { l.textContent = playing ? "Pause" : l.dataset.label || "En direct"; });
   });
 
-  /* ---------- Liens : ?now= suit la navigation ---------- */
-  if (offset) document.addEventListener("click", (e) => {
+  /* ---------- Liens : ?now= et ?habillage= suivent la navigation ---------- */
+  document.addEventListener("click", (e) => {
     const a = e.target.closest("a[href]");
-    if (a) a.setAttribute("href", withNow(a.getAttribute("href")));
+    if (a) a.setAttribute("href", withState(a.getAttribute("href")));
   }, true);
+
+  /* ---------- Habillage ---------- */
+  document.body.classList.toggle("skin", skin);
+  $("#skinToggle").addEventListener("click", (e) => {
+    skin = document.body.classList.toggle("skin");
+    e.currentTarget.setAttribute("aria-pressed", skin);
+    e.currentTarget.textContent = skin ? "Masquer l'habillage" : "Voir avec habillage";
+    const u = new URL(location.href);
+    if (skin) u.searchParams.set("habillage", "1"); else u.searchParams.delete("habillage");
+    history.replaceState(null, "", u);
+  });
 
   /* ---------- Menus ---------- */
   $("#burger").addEventListener("click", (e) => {
     const open = $("#mainNav").classList.toggle("open");
     e.currentTarget.setAttribute("aria-expanded", open);
   });
-  const subBtn = $(".sub-toggle");
-  subBtn.addEventListener("click", () => {
-    const open = subBtn.getAttribute("aria-expanded") !== "true";
-    subBtn.setAttribute("aria-expanded", open);
-  });
+  const subBtns = $$(".sub-toggle");
+  subBtns.forEach((b) => b.addEventListener("click", () => {
+    const open = b.getAttribute("aria-expanded") !== "true";
+    subBtns.forEach((x) => x.setAttribute("aria-expanded", x === b && open));
+  }));
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".has-sub")) subBtn.setAttribute("aria-expanded", "false");
+    if (!e.target.closest(".has-sub")) subBtns.forEach((b) => b.setAttribute("aria-expanded", "false"));
     if (e.target.closest(".main-nav a")) $("#mainNav").classList.remove("open");
   });
 
   /* ---------- Annotations ---------- */
+  // Appelé en fin de rendu de chaque page : place aussi les publicités
   function initAnnotations() {
-    const blocks = $$("[data-effort]");
+    renderAds();
+    const blocks = $$("[data-effort]").filter((b) => b.dataset.effort !== "com");
     const auto = blocks.filter((b) => b.dataset.effort === "auto").length;
-    $("#annotSum").textContent = `${auto} blocs sur ${blocks.length} se remplissent seuls.`;
+    const ads = $$(".ad").length;
+    $("#annotSum").textContent = `${auto} blocs éditoriaux sur ${blocks.length} se remplissent seuls.${ads ? ` ${ads} emplacement${ads > 1 ? "s" : ""} publicitaire${ads > 1 ? "s" : ""}.` : ""}`;
     $("#annotToggle").addEventListener("click", (e) => {
       const on = document.body.classList.toggle("annot");
       e.currentTarget.setAttribute("aria-pressed", on);
@@ -261,7 +333,7 @@
     if (location.hash === "#annotations") $("#annotToggle").click();
   }
 
-  window.RLUI = { $, $$, esc, pad, toMin, hhmm, minLabel, now, img, media, fit, dayIdx, daySlots, dayGrid, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, songsBefore, SLOT, carousel, renderDock, initAnnotations };
+  window.RLUI = { $, $$, esc, pad, toMin, hhmm, minLabel, now, img, media, fit, dayIdx, daySlots, dayGrid, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, thumb, videoThumb, videoFrame, playVideo, songsBefore, SLOT, carousel, renderDock, initAnnotations };
   renderDock();
   setInterval(renderDock, 30000);
 })();

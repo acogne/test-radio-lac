@@ -4,20 +4,23 @@ Démo statique (HTML/CSS/JS, sans dépendance ni étape de build) du site Radio 
 
 Le site fonctionne sur GitHub Pages **et** en local, en double-cliquant sur `index.html`.
 
-Bouton **« Voir l'effort de production par bloc »** (bandeau du haut) : montre pour chaque bloc s'il se remplit seul ou demande un peu de travail. Lien direct : `index.html#annotations`.
+Bouton **« Voir l'effort de production par bloc »** (bandeau du haut) : montre pour chaque bloc s'il se remplit seul, demande un peu de travail, ou relève de la régie (publicité, en violet). Lien direct : `index.html#annotations`.
+
+Bouton **« Voir avec habillage »** : simule un habillage publicitaire (fond de page dans les marges et espace de 250 px en haut), visible sur un écran de plus de 1180 px de large. L'état est gardé d'une page à l'autre (`?habillage=1`).
 
 ## Pages
 
 | Page | Contenu | Script |
 |---|---|---|
-| `index.html` | Accueil : direct, grille du jour, titres, actu, podcasts, webradios, apps | `app.js` |
+| `index.html` | Accueil : direct, grille du jour, titres, actu, podcasts, vidéos, webradios, apps | `app.js` |
 | `emissions.html` | Grille de la semaine, un onglet par jour (jour courant par défaut) | `pages.js` |
 | `animateurs.html` | Les 4 animateurs, leurs émissions et horaires (déduits de la grille) | `pages.js` |
 | `frequences.html` | DAB+, fréquences FM, liens des apps | `pages.js` |
 | `actu.html` | Tous les articles | `pages.js` |
 | `article.html?id=N` | Un article (N = 1, 2, 3…) ; id inconnu → message et lien vers l'actu | `pages.js` |
 | `concours.html` | Les articles de catégorie « Concours » (état vide prévu s'il n'y en a aucun) | `pages.js` |
-| `podcasts.html` | Toutes les chroniques, regroupées par émission | `pages.js` |
+| `podcasts.html` | Les derniers épisodes, une section par émission | `pages.js` |
+| `videos.html` | Toutes les vidéos YouTube, lecture dans la page | `pages.js` |
 | `playlist.html` | Titres diffusés par jour et heure | `playlist.js` |
 | `webradios.html` | Les webradios, dans l'ordre | `pages.js` |
 
@@ -42,7 +45,8 @@ Tout le contenu affiché est dans **`data.js`**, source unique pour le site. Il 
 | `webradios` | `contenus/webradios.txt` (+ Nouveautés en tête) |
 | `frequencies` | `contenus/frequences.txt` |
 | `apps` | `contenus/liens-app.txt` |
-| `podcasts` | noms des visuels de `img/podcasts/` |
+| `chronicles` | noms des visuels de `img/podcasts/` |
+| `videos` | titres relevés via l'oEmbed YouTube |
 
 ## Modifier un contenu
 
@@ -51,7 +55,9 @@ Ouvrir `data.js` dans un éditeur de texte, modifier, enregistrer, recharger la 
 - **Grille** : chaque jour a sa liste `[début, fin, émission]`. Une émission qui passe minuit reste dans le jour où elle commence, avec une fin après 24:00 (Lac Fever : `["22:00", "25:00", "lac-fever"]`, affiché 22:00 – 01:00) ; le jour suivant commence alors à 01:00. Les créneaux doivent se suivre sans trou.
 - **Animateurs d'une émission** : `hosts` dans `shows` (ids : `fabien`, `carole`, `fred`, `sophie`). La page Animateurs se met à jour seule.
 - **Article** : ajouter une entrée dans `articles` avec un `id` nouveau ; le texte (`body`) est du HTML simple (`<p>`, `<h2>`, `<h3>`, `<ul>`, `<strong>`, `<a>`). Les 3 premiers de la liste s'affichent sur l'accueil. Catégorie `"Concours"` → l'article apparaît aussi dans la page Concours.
-- **Podcast** : ajouter une entrée dans `podcasts` (liste du plus récent au plus ancien). `show: null` pour une chronique sans émission.
+- **Podcast** : une chronique se déclare dans `chronicles` (émission, heure de diffusion ; `show: null` pour une chronique sans émission), un épisode dans `episodes` (`ago` : 0 = dernière diffusion, 1 = l'avant-dernière…). La date est calculée d'après la grille et l'heure courante.
+- **Vidéo** : ajouter `{ id, title, date }` en tête de `videos` (`id` = les 11 caractères après `youtu.be/`). La première s'affiche en grand sur l'accueil, les 3 suivantes en liste. La miniature vient de YouTube ; le lecteur (youtube-nocookie.com) n'est chargé qu'au clic.
+- **Publicité** : tout est dans `ads` : les formats (`formats`), les largeurs d'écran où l'on passe en tablette puis en ordinateur (`breakpoints`), et pour chaque emplacement les pages, la position (`after` : l'élément après lequel il s'insère) et le format pour mobile, tablette et ordinateur. Chaque emplacement réserve sa hauteur, la page ne bouge pas au chargement de la pub.
 - **Webradio** : ajouter une entrée dans `webradios` ; l'ordre de la liste est l'ordre d'affichage, les 4 premières sont visibles sur l'accueil.
 
 ## Images
@@ -84,6 +90,7 @@ Tout ce qui est dans le dépôt est public, y compris `contenus/`, `img/` (lourd
 - **Titres diffusés** (accueil, player, playlist) : simulation à partir d'une liste fixe de titres ; en production, flux de titrage existant.
 - **Épisodes et dates des podcasts** : titres d'épisodes et dates inventés (marqués EXEMPLE dans `data.js`) ; les chroniques et leurs visuels sont réels.
 - **Flux audio** : `streamUrl` vide dans `data.js`, le bouton En direct ouvre le player actuel de radiolac.ch. Les webradios ne sont pas jouables dans la démo.
+- **Publicité** : cadres de démonstration et habillage factice ; en production, les emplacements sont remplis par la régie.
 - **Formulaire de concours** (article 1) : remplacé par une mention, il dépend du site de production.
 - **Footer** : « Règlements des concours », « Données personnelles » et le nom du futur site d'info sont affichés sans lien, en attente des adresses.
 

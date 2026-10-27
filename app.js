@@ -1,7 +1,7 @@
 /* Page d'accueil */
 (function () {
   const D = window.RL;
-  const { $, $$, esc, hhmm, minLabel, now, img, media, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, songsBefore, carousel, initAnnotations } = window.RLUI;
+  const { $, $$, esc, hhmm, minLabel, now, img, media, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, videoThumb, videoFrame, playVideo, songsBefore, carousel, initAnnotations } = window.RLUI;
 
   /* ---------- Direct + grille ---------- */
   function renderLive() {
@@ -72,6 +72,25 @@
     $$("#podcastFilters button").forEach((x) => x.setAttribute("aria-selected", x === b));
     renderPodcasts(b.dataset.filter);
   }));
+
+  /* ---------- Vidéos : la plus récente en grand, les 3 suivantes en liste ---------- */
+  // Cliquer une vidéo de la liste l'échange avec la grande et la lance
+  const vids = D.videos.slice(0, 4);
+  function renderVideos(play) {
+    $("#videoMain").innerHTML = `${videoFrame(vids[0])}<h3 class="v-title">${esc(vids[0].title)}</h3>`;
+    $("#videoList").innerHTML = vids.slice(1).map((v) => `
+      <li><button class="v-item" data-id="${v.id}" aria-label="Lire la vidéo : ${esc(v.title)}">
+        <span class="v-thumb">${videoThumb(v.id, "mqdefault")}</span><span class="v-item-title">${esc(v.title)}</span>
+      </button></li>`).join("");
+    if (play) playVideo($("#videoMain .video"));
+  }
+  renderVideos(false);
+  $("#videoList").addEventListener("click", (e) => {
+    const b = e.target.closest(".v-item"); if (!b) return;
+    const i = vids.findIndex((v) => v.id === b.dataset.id);
+    [vids[0], vids[i]] = [vids[i], vids[0]];
+    renderVideos(true);
+  });
 
   /* ---------- Webradios : carrousel, 4 visibles ---------- */
   $("#wrCarousel").innerHTML = D.webradios.map((w) => `

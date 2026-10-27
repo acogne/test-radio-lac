@@ -1,7 +1,7 @@
 /* Pages de liste : émissions, animateurs, fréquences, actu, article, concours, podcasts, webradios */
 (function () {
   const D = window.RL;
-  const { $, $$, esc, now, img, media, dayIdx, daySlots, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, initAnnotations } = window.RLUI;
+  const { $, $$, esc, now, img, media, dayIdx, daySlots, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, videoFrame, initAnnotations } = window.RLUI;
   const page = document.body.dataset.page;
   const lower = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 
@@ -135,12 +135,18 @@
       </section>`).join("");
   }
 
+  /* ---------- Vidéos : toutes, en grille, lecture au clic ---------- */
+  function videos() {
+    $("#videosList").innerHTML = D.videos.map((v) => `
+      <article class="video-card">${videoFrame(v)}<h2 class="v-title">${esc(v.title)}</h2></article>`).join("");
+  }
+
   /* ---------- Webradios ---------- */
   function webradios() {
     $("#webradiosList").innerHTML = D.webradios.map((w) => `
       <li class="wr" id="${w.slug}">${media(w.name, img("webradios", w.slug), "round")}<p class="wr-name">${esc(w.name)}</p></li>`).join("");
   }
 
-  ({ emissions, animateurs, frequences, actu, concours, article, podcasts, webradios })[page]();
+  ({ emissions, animateurs, frequences, actu, concours, article, podcasts, videos, webradios })[page]();
   initAnnotations();
 })();

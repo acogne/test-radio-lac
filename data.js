@@ -348,5 +348,47 @@ window.RL = {
     { slug: "rap-francophone", name: "Rap francophone" },
     { slug: "zen", name: "Zen" },
     { slug: "rock-collector", name: "Rock Collector" }
-  ]
+  ],
+
+  // Vidéos YouTube, de la plus récente à la plus ancienne. Titres et dates
+  // relevés via l'oEmbed YouTube et la page de chaque vidéo (27.10.2026).
+  // En production : alimenté par la chaîne YouTube de Radio Lac.
+  videos: [
+    { id: "snwI88ugdEI", title: "La rentrée des classes avec le Cirque Knie", date: "2026-10-27" },
+    { id: "XOmPXFkFSD4", title: "La face cachée de l'info : fromages, arbres et football", date: "2026-10-27" },
+    { id: "jwPgoowVqM4", title: "Les meilleurs souvenirs de rentrée des auditeurs", date: "2026-10-27" },
+    { id: "A2mpWWTQr0A", title: "La rentrée des classes : souvenirs et anecdotes", date: "2026-10-27" }
+  ],
+
+  // Publicité : emplacements de DÉMONSTRATION, tout se règle ici.
+  // Chaque emplacement donne son format pour mobile, tablette et ordinateur,
+  // et sa position dans la page (sélecteur CSS de l'élément qu'il suit).
+  ads: {
+    // Largeur d'écran à partir de laquelle on passe en tablette, puis en ordinateur
+    breakpoints: { tablet: 768, desktop: 1060 },
+    formats: {
+      billboard: { name: "Billboard", w: 970, h: 250 },
+      leaderboard: { name: "Leaderboard", w: 728, h: 90 },
+      pave: { name: "Pavé", w: 300, h: 250 }
+    },
+    slots: [
+      // Accueil
+      { id: "accueil-1", pages: ["home"], after: "#titres", band: true,
+        mobile: "pave", tablet: "leaderboard", desktop: "billboard" },
+      { id: "accueil-actu", pages: ["home"], after: "#articles > .article:nth-child(2)", inGrid: true,
+        mobile: "pave", tablet: "pave", desktop: "pave" },
+      { id: "accueil-3", pages: ["home"], after: "#videos", band: true,
+        mobile: "pave", tablet: "leaderboard", desktop: "billboard" },
+      // Article
+      { id: "article-texte", pages: ["article"], after: "#articleBody .prose > p:nth-of-type(2)",
+        mobile: "pave", tablet: "pave", desktop: "pave" },
+      { id: "article-bas", pages: ["article"], after: "#articleBody",
+        mobile: "pave", tablet: "leaderboard", desktop: "billboard" },
+      // Pages de liste : après la première section de contenu
+      { id: "liste", pages: ["podcasts", "videos", "webradios", "emissions", "actu", "concours"], after: "main .section", band: true,
+        mobile: "pave", tablet: "leaderboard", desktop: "billboard" }
+    ],
+    // Habillage : fond visible au-delà de cette largeur de contenu, espace réservé en haut
+    skin: { content: 1180, top: 250 }
+  }
 };
