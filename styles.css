@@ -169,10 +169,10 @@ button{font:inherit;cursor:pointer}
 .replays{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 .replay{background:#fff;border-radius:var(--r-md);padding:14px;display:flex;flex-direction:column;gap:10px;text-decoration:none;border:1px solid var(--brand-100)}
 .r-show{font-size:13px;font-weight:700;color:var(--brand-ink)}
+.r-chron{font-size:14px;font-weight:600;color:var(--ink-soft);line-height:1.25;margin-top:-8px}
 .r-title{font-weight:700;line-height:1.2;margin-top:-4px}
-.r-ep{font-size:15px;color:var(--ink-soft);line-height:1.3}
 .r-meta{font-size:13px;color:var(--ink-soft);margin-top:auto}
-.replay:hover .r-ep{text-decoration:underline}
+a.replay:hover .r-title{text-decoration:underline}
 
 /* webradios */
 .webradios{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}

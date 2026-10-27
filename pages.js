@@ -1,7 +1,7 @@
 /* Pages de liste : émissions, animateurs, fréquences, actu, article, concours, podcasts, webradios */
 (function () {
   const D = window.RL;
-  const { $, $$, esc, now, img, media, dayIdx, daySlots, slotTime, liveShow, hostsOf, hostNames, initAnnotations } = window.RLUI;
+  const { $, $$, esc, now, img, media, dayIdx, daySlots, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, initAnnotations } = window.RLUI;
   const page = document.body.dataset.page;
   const lower = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 
@@ -12,10 +12,6 @@
       <span class="a-title">${esc(a.title)}</span>
       <span class="a-date">${esc(a.date)}</span>
     </a>`;
-  const podcastCard = (p) => `
-    <article class="replay" id="${p.slug}">${media(p.title, img("podcasts", p.slug))}
-      <span class="r-title">${esc(p.title)}</span><span class="r-ep">${esc(p.ep)}</span>
-      <span class="r-meta">${esc(p.date)}</span></article>`;
 
   /* ---------- Émissions : grille de la semaine, un onglet par jour ---------- */
   function emissions() {
@@ -122,9 +118,10 @@
     $("#otherList").innerHTML = D.articles.filter((x) => x !== a).map(articleCard).join("");
   }
 
-  /* ---------- Podcasts : une section par émission ---------- */
+  /* ---------- Podcasts : une section par émission, ses 8 derniers épisodes ---------- */
   function podcasts() {
-    const ids = [...new Set(D.podcasts.map((p) => p.show).filter(Boolean))];
+    const all = episodes();
+    const ids = [...new Set(D.chronicles.map((c) => c.show).filter(Boolean))];
     const sections = [
       ...ids.map((id) => ({ id, title: D.shows[id].name, hosts: hostNames(D.shows[id]) })),
       { id: null, title: "Le truc en plus", hosts: "" }
@@ -133,7 +130,7 @@
       <section class="section${i % 2 ? " section-tint" : ""}" aria-labelledby="pc-${i}">
         <div class="wrap">
           <div class="section-head"><div><h2 id="pc-${i}">${esc(s.title)}</h2>${s.hosts ? `<p class="lede">Avec ${esc(s.hosts)}</p>` : ""}</div></div>
-          <div class="replays">${D.podcasts.filter((p) => p.show === s.id).map(podcastCard).join("")}</div>
+          <div class="replays">${all.filter((e) => e.ch.show === s.id).slice(0, 8).map((e) => episodeCard(e)).join("")}</div>
         </div>
       </section>`).join("");
   }

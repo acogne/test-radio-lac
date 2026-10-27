@@ -1,7 +1,7 @@
 /* Page d'accueil */
 (function () {
   const D = window.RL;
-  const { $, $$, esc, hhmm, minLabel, now, img, media, slotTime, liveShow, hostsOf, hostNames, songsBefore, carousel, initAnnotations } = window.RLUI;
+  const { $, $$, esc, hhmm, minLabel, now, img, media, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, songsBefore, carousel, initAnnotations } = window.RLUI;
 
   /* ---------- Direct + grille ---------- */
   function renderLive() {
@@ -62,13 +62,10 @@
   const filters = [["all", "Tout"], ...["le-meilleur-des-reveils", "il-suffit-de-demander", "jpeux-pas-j-ai-radio-lac"].map((id) => [id, D.shows[id].name]), ["none", "Le truc en plus"]];
   $("#podcastFilters").innerHTML = filters.map(([key, label], i) =>
     `<button role="tab" aria-selected="${i === 0}" data-filter="${key}">${esc(label)}</button>`).join("");
+  // 8 derniers épisodes, toutes émissions ou celle du filtre
   function renderPodcasts(filter) {
-    const list = filter === "all" ? D.podcasts.slice(0, 8) : D.podcasts.filter((p) => (p.show || "none") === filter);
-    $("#replays").innerHTML = list.map((p) => `
-      <a href="podcasts.html#${p.slug}" class="replay">${media(p.title, img("podcasts", p.slug))}
-      <span class="r-show">${esc(p.show ? D.shows[p.show].name : "Chronique")}</span>
-      <span class="r-title">${esc(p.title)}</span><span class="r-ep">${esc(p.ep)}</span>
-      <span class="r-meta">${esc(p.date)}</span></a>`).join("");
+    const list = episodes().filter((e) => filter === "all" || (e.ch.show || "none") === filter).slice(0, 8);
+    $("#replays").innerHTML = list.map((e) => episodeCard(e, true)).join("");
   }
   renderPodcasts("all");
   $$("#podcastFilters button").forEach((b) => b.addEventListener("click", () => {

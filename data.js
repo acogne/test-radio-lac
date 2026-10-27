@@ -163,21 +163,64 @@ window.RL = {
     { artist: "Pharrell Williams", title: "Happy" }
   ],
 
-  // Podcasts : une chronique par visuel  →  img-web/podcasts/<slug>.webp
-  // show : id de l'émission parente (null = chronique indépendante).
-  // ep et date : EXEMPLES, à brancher sur le pipeline de publication.
-  // Liste triée du plus récent au plus ancien.
-  podcasts: [
-    { slug: "le-meilleur-des-reveils-le-duel-du-matin", show: "le-meilleur-des-reveils", title: "Le duel du matin", ep: "Épisode du lundi 26 octobre", date: "26 oct. 2026" },
-    { slug: "il-suffit-de-demander-le-chiffre-du-jour", show: "il-suffit-de-demander", title: "Le chiffre du jour", ep: "Épisode du lundi 26 octobre", date: "26 oct. 2026" },
-    { slug: "le-truc-en-plus", show: null, title: "Le truc en plus", ep: "Épisode du samedi 24 octobre", date: "24 oct. 2026" },
-    { slug: "jpeux-pas-j-ai-radio-lac-eric-achkar-ramene-sa-science", show: "jpeux-pas-j-ai-radio-lac", title: "Eric Achkar ramène sa science", ep: "Éclipses solaires et lunaires : comment les différencier ?", date: "23 oct. 2026" },
-    { slug: "le-meilleur-des-reveils-cette-annee-la", show: "le-meilleur-des-reveils", title: "Cette année-là", ep: "Épisode du vendredi 23 octobre", date: "23 oct. 2026" },
-    { slug: "il-suffit-de-demander-les-experts", show: "il-suffit-de-demander", title: "Les experts", ep: "La fiabilité, clé du management en entreprise", date: "22 oct. 2026" },
-    { slug: "jpeux-pas-j-ai-radio-lac-le-mashup-de-zebra", show: "jpeux-pas-j-ai-radio-lac", title: "Le mashup de Zebra", ep: "Épisode du jeudi 22 octobre", date: "22 oct. 2026" },
-    { slug: "le-meilleur-des-reveils-radio-insolite", show: "le-meilleur-des-reveils", title: "Radio insolite", ep: "Épisode du mercredi 21 octobre", date: "21 oct. 2026" },
-    { slug: "jpeux-pas-j-ai-radio-lac-what-a-good-heidi", show: "jpeux-pas-j-ai-radio-lac", title: "What a good Heidi", ep: "Épisode du mercredi 21 octobre", date: "21 oct. 2026" },
-    { slug: "il-suffit-de-demander-passion-locale", show: "il-suffit-de-demander", title: "Passion locale", ep: "Épisode du mardi 20 octobre", date: "20 oct. 2026" }
+  // Chroniques : une par visuel  →  img-web/podcasts/<slug>.webp
+  // show : émission parente (null = chronique indépendante, « Le truc en plus »).
+  // at : heure de diffusion habituelle. grid : émission pendant laquelle passe
+  // une chronique indépendante (sert à placer ses épisodes dans la grille).
+  chronicles: [
+    { slug: "le-meilleur-des-reveils-le-duel-du-matin", show: "le-meilleur-des-reveils", title: "Le duel du matin", at: "09:30" },
+    { slug: "le-meilleur-des-reveils-cette-annee-la", show: "le-meilleur-des-reveils", title: "Cette année-là", at: "08:25" },
+    { slug: "le-meilleur-des-reveils-radio-insolite", show: "le-meilleur-des-reveils", title: "Radio insolite", at: "06:38" },
+    { slug: "il-suffit-de-demander-le-chiffre-du-jour", show: "il-suffit-de-demander", title: "Le chiffre du jour", at: "10:27" },
+    { slug: "il-suffit-de-demander-passion-locale", show: "il-suffit-de-demander", title: "Passion locale", at: "11:40" },
+    { slug: "il-suffit-de-demander-les-experts", show: "il-suffit-de-demander", title: "Les experts", at: "12:32" },
+    { slug: "jpeux-pas-j-ai-radio-lac-le-mashup-de-zebra", show: "jpeux-pas-j-ai-radio-lac", title: "Le mashup de Zebra", at: "16:45" },
+    { slug: "jpeux-pas-j-ai-radio-lac-eric-achkar-ramene-sa-science", show: "jpeux-pas-j-ai-radio-lac", title: "Eric Achkar ramène sa science", at: "17:20" },
+    { slug: "jpeux-pas-j-ai-radio-lac-what-a-good-heidi", show: "jpeux-pas-j-ai-radio-lac", title: "What a good Heidi", at: "19:10" },
+    { slug: "le-truc-en-plus", show: null, grid: "il-suffit-de-demander", title: "Le truc en plus", at: "11:00" }
+  ],
+
+  // Épisodes : EXEMPLES, à brancher sur le pipeline de publication.
+  // ago : rang de diffusion, 0 = dernière diffusion de l'émission avant
+  // maintenant, 1 = la précédente, etc. La date est calculée à l'affichage
+  // d'après la grille et l'heure courante (ou ?now=) : le bloc reste à jour
+  // et un épisode ne tombe jamais un jour où l'émission n'est pas à l'antenne.
+  // title : vrai titre relevé sur radiolac.ch (27.10.2026) ; absent = titre
+  // neutre daté, ex. « Le duel du matin, 24 octobre ».
+  episodes: [
+    { c: "le-meilleur-des-reveils-le-duel-du-matin", ago: 0, title: "Tout savoir sur le champagne" },
+    { c: "le-meilleur-des-reveils-le-duel-du-matin", ago: 3 },
+    { c: "le-meilleur-des-reveils-le-duel-du-matin", ago: 6 },
+    { c: "le-meilleur-des-reveils-cette-annee-la", ago: 1 },
+    { c: "le-meilleur-des-reveils-cette-annee-la", ago: 4 },
+    { c: "le-meilleur-des-reveils-cette-annee-la", ago: 7 },
+    { c: "le-meilleur-des-reveils-radio-insolite", ago: 0, title: "La mésaventure de Miss Neuchâtel à la Fête des Vendanges" },
+    { c: "le-meilleur-des-reveils-radio-insolite", ago: 2 },
+    { c: "le-meilleur-des-reveils-radio-insolite", ago: 5 },
+    { c: "le-meilleur-des-reveils-radio-insolite", ago: 8 },
+    { c: "il-suffit-de-demander-le-chiffre-du-jour", ago: 0, title: "Royaume-Uni : 500 000 arbres plantés pour le climat !" },
+    { c: "il-suffit-de-demander-le-chiffre-du-jour", ago: 2 },
+    { c: "il-suffit-de-demander-le-chiffre-du-jour", ago: 5 },
+    { c: "il-suffit-de-demander-le-chiffre-du-jour", ago: 8 },
+    { c: "il-suffit-de-demander-passion-locale", ago: 1 },
+    { c: "il-suffit-de-demander-passion-locale", ago: 4 },
+    { c: "il-suffit-de-demander-passion-locale", ago: 7 },
+    { c: "il-suffit-de-demander-les-experts", ago: 0, title: "Nutrition sportive et fatigue : comment mieux se nourrir ?" },
+    { c: "il-suffit-de-demander-les-experts", ago: 3, title: "La fiabilité, clé du management en entreprise" },
+    { c: "il-suffit-de-demander-les-experts", ago: 6 },
+    { c: "jpeux-pas-j-ai-radio-lac-le-mashup-de-zebra", ago: 0, title: "Le mélange inédit de AC/DC, Queen et Dr. Dre" },
+    { c: "jpeux-pas-j-ai-radio-lac-le-mashup-de-zebra", ago: 3 },
+    { c: "jpeux-pas-j-ai-radio-lac-le-mashup-de-zebra", ago: 6 },
+    { c: "jpeux-pas-j-ai-radio-lac-eric-achkar-ramene-sa-science", ago: 2 },
+    { c: "jpeux-pas-j-ai-radio-lac-eric-achkar-ramene-sa-science", ago: 4, title: "Éclipses solaires et lunaires : comment les différencier ?" },
+    { c: "jpeux-pas-j-ai-radio-lac-eric-achkar-ramene-sa-science", ago: 8 },
+    { c: "jpeux-pas-j-ai-radio-lac-what-a-good-heidi", ago: 1 },
+    { c: "jpeux-pas-j-ai-radio-lac-what-a-good-heidi", ago: 4 },
+    { c: "jpeux-pas-j-ai-radio-lac-what-a-good-heidi", ago: 7 },
+    { c: "le-truc-en-plus", ago: 0 },
+    { c: "le-truc-en-plus", ago: 2 },
+    { c: "le-truc-en-plus", ago: 4 },
+    { c: "le-truc-en-plus", ago: 7 }
   ],
 
   // Articles (contenus/article-N.txt)  →  img-web/actu/article-N.webp

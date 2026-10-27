@@ -71,6 +71,39 @@
   const hostsOf = (show) => show.hosts.map((id) => D.hosts.find((h) => h.id === id)).filter(Boolean);
   const hostNames = (show) => hostsOf(show).map((h) => h.name).join(" et ");
 
+  /* ---------- Podcasts : épisodes datés d'après la grille ---------- */
+  // Diffusions passées d'une chronique, de la plus récente à la plus ancienne :
+  // jours où son émission est à l'antenne à l'heure de la chronique.
+  function airings(ch, count) {
+    const show = ch.show || ch.grid, t = toMin(ch.at), at = now(), out = [];
+    for (let k = 0; out.length < count && k < 60; k++) {
+      const d = new Date(at.getFullYear(), at.getMonth(), at.getDate() - k, Math.floor(t / 60), t % 60);
+      if (d <= at && daySlots(dayIdx(d)).some((sh) => sh.id === show && t >= sh.s && t < sh.e)) out.push(d);
+    }
+    return out;
+  }
+  const dayMonth = (d) => new Intl.DateTimeFormat("fr-CH", { day: "numeric", month: "long" }).format(d).replace(/^1 /, "1er ");
+  // Tous les épisodes, du plus récent au plus ancien
+  function episodes() {
+    return D.episodes.map((e) => {
+      const ch = D.chronicles.find((c) => c.slug === e.c);
+      const date = airings(ch, e.ago + 1)[e.ago];
+      return { ...e, ch, date, title: e.title || `${ch.title}, ${dayMonth(date)}`,
+        id: `${ch.slug}-${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` };
+    }).sort((a, b) => b.date - a.date);
+  }
+  function relDay(d) {
+    const t = now(), days = Math.round((new Date(t.getFullYear(), t.getMonth(), t.getDate()) - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 864e5);
+    return days === 0 ? "Aujourd'hui" : days === 1 ? "Hier" : `Il y a ${days} jours`;
+  }
+  // Carte d'épisode : lien vers la page Podcasts (accueil) ou ancre sur cette page
+  const episodeCard = (e, link) => `
+    <${link ? `a href="podcasts.html#${e.id}"` : `article id="${e.id}"`} class="replay">${media(e.ch.title, img("podcasts", e.ch.slug))}
+      <span class="r-show">${esc(e.ch.show ? D.shows[e.ch.show].name : "Chronique")}</span>
+      <span class="r-chron">${esc(e.ch.title)}</span>
+      <span class="r-title">${esc(e.title).replace(/ ([?!:;])/g, "&nbsp;$1")}</span>
+      <span class="r-meta">${relDay(e.date)}</span></${link ? "a" : "article"}>`;
+
   /* ---------- Titres : simulation déterministe, un titre toutes les 4 min ---------- */
   const SLOT = 4 * 60000;
   const songAtSlot = (k) => D.songs[((k * 7) % D.songs.length + D.songs.length) % D.songs.length];
@@ -195,7 +228,7 @@
 
   /* ---------- Liens : ?now= suit la navigation ---------- */
   if (offset) document.addEventListener("click", (e) => {
-    const a = e.target.closest("a[href]:not([href^='http'])"); // liens externes intacts
+    const a = e.target.closest("a[href]");
     if (a) a.setAttribute("href", withNow(a.getAttribute("href")));
   }, true);
 
@@ -228,7 +261,7 @@
     if (location.hash === "#annotations") $("#annotToggle").click();
   }
 
-  window.RLUI = { $, $$, esc, pad, toMin, hhmm, minLabel, now, img, media, fit, dayIdx, daySlots, dayGrid, slotTime, liveShow, hostsOf, hostNames, songsBefore, SLOT, carousel, renderDock, initAnnotations };
+  window.RLUI = { $, $$, esc, pad, toMin, hhmm, minLabel, now, img, media, fit, dayIdx, daySlots, dayGrid, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, songsBefore, SLOT, carousel, renderDock, initAnnotations };
   renderDock();
   setInterval(renderDock, 30000);
 })();
