@@ -98,6 +98,9 @@
   const radioPages = ["emissions", "animateurs", "frequences", "actu", "article"];
   const cur = (keys) => ([].concat(keys).includes(page) ? ' aria-current="page"' : "");
   const navItem = (href, label, key) => `<a href="${href}" class="nav-link${page === key ? " is-active" : ""}"${cur(key)}>${label}</a>`;
+  // Réseaux sociaux (data.js) : seuls ceux qui ont une URL sont affichés
+  const socialLinks = (cls) => `<div class="${cls}">${D.socials.filter((s) => s.url).map((s) =>
+    `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Radio Lac sur ${esc(s.name)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="${s.icon}"/></svg></a>`).join("")}</div>`;
 
   let bar = "Maquette interne : contenus réels, titres diffusés et épisodes d'exemple";
   if (offset) bar += ` · Heure simulée : ${new Intl.DateTimeFormat("fr-CH", { weekday: "long", hour: "2-digit", minute: "2-digit" }).format(forced)}`;
@@ -127,6 +130,7 @@
         ${navItem("playlist.html", "Playlist", "playlist")}
         ${navItem("concours.html", "Concours", "concours")}
         ${navItem("webradios.html", "Webradios", "webradios")}
+        ${socialLinks("social nav-social")}
       </nav>
       <button class="btn-live js-play" aria-label="Écouter le direct">
         <span class="play-ico" aria-hidden="true"></span><span class="btn-live-label js-play-label">En direct</span>
@@ -151,7 +155,7 @@
           <a href="http://www.mediaone.ch">Publicité</a><a href="https://www.mediaonegroup.ch/emplois-et-stages/">Emplois</a><span class="fc-static">Règlements des concours</span><span class="fc-static">Données personnelles</span></div>
       </div>
     </div>
-    <div class="wrap footer-bottom">© 2026 Radio Lac, Media One Group</div>
+    <div class="wrap footer-bottom"><span>© 2026 Radio Lac, Media One Group</span>${socialLinks("social footer-social")}</div>
   </footer>
   <div class="dock" role="region" aria-label="Lecteur du direct">
     <div class="wrap dock-inner">
@@ -191,7 +195,7 @@
 
   /* ---------- Liens : ?now= suit la navigation ---------- */
   if (offset) document.addEventListener("click", (e) => {
-    const a = e.target.closest("a[href]");
+    const a = e.target.closest("a[href]:not([href^='http'])"); // liens externes intacts
     if (a) a.setAttribute("href", withNow(a.getAttribute("href")));
   }, true);
 
