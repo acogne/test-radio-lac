@@ -1,7 +1,7 @@
 /* Page d'accueil */
 (function () {
   const D = window.RL;
-  const { $, $$, esc, hhmm, minLabel, now, img, media, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, videoThumb, videoFrame, playVideo, songsBefore, carousel, initAnnotations } = window.RLUI;
+  const { $, $$, esc, hhmm, minLabel, now, img, media, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, videoThumb, videoFrame, playVideo, songsBefore, songCover, onAir, carousel, initAnnotations } = window.RLUI;
 
   /* ---------- Direct + grille ---------- */
   function renderLive() {
@@ -36,13 +36,15 @@
   function renderSongs() {
     const list = songsBefore(now(), 10);
     const cur = list[0];
-    $("#heroCover").innerHTML = media(cur.artist, null, "cover-hero");
+    $("#heroCover").innerHTML = media(cur.artist, songCover(cur), "cover-hero");
+    const live = onAir(cur);
+    $("#heroSongLabel").textContent = live ? "À l'antenne" : `Dernier titre, à ${hhmm(cur.at)}`;
     $("#heroTitle").textContent = cur.title;
     $("#heroArtist").textContent = cur.artist;
     $("#songCarousel").innerHTML = list.map((s, i) => `
-      <li class="song-card${i === 0 ? " is-current" : ""}">
-        ${media(s.artist, null, "")}
-        <span class="sc-time">${i === 0 ? "En cours" : hhmm(s.at)}</span>
+      <li class="song-card${i === 0 && live ? " is-current" : ""}">
+        ${media(s.artist, songCover(s), "")}
+        <span class="sc-time">${i === 0 && live ? "En cours" : hhmm(s.at)}</span>
         <span class="sc-title">${esc(s.title)}</span>
         <span class="sc-artist">${esc(s.artist)}</span>
       </li>`).join("");

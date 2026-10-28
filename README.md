@@ -45,6 +45,7 @@ Tout le contenu affiché est dans **`data.js`**, source unique pour le site. Il 
 | `webradios` | `contenus/webradios.txt` (+ Nouveautés en tête) |
 | `frequencies` | `contenus/frequences.txt` |
 | `apps` | `contenus/liens-app.txt` |
+| `playlist` (titres diffusés) | `contenus/titres.json`, récupéré sur radiolac.ch |
 | `chronicles` | noms des visuels de `img/podcasts/` |
 | `videos` | titres relevés via l'oEmbed YouTube |
 
@@ -59,6 +60,17 @@ Ouvrir `data.js` dans un éditeur de texte, modifier, enregistrer, recharger la 
 - **Vidéo** : ajouter `{ id, title, date }` en tête de `videos` (`id` = les 11 caractères après `youtu.be/`). La première s'affiche en grand sur l'accueil, les 3 suivantes en liste. La miniature vient de YouTube ; le lecteur (youtube-nocookie.com) n'est chargé qu'au clic.
 - **Publicité** : tout est dans `ads` : les formats (`formats`), les largeurs d'écran où l'on passe en tablette puis en ordinateur (`breakpoints`), et pour chaque emplacement les pages, la position (`after` : l'élément après lequel il s'insère) et le format pour mobile, tablette et ordinateur. Chaque emplacement réserve sa hauteur, la page ne bouge pas au chargement de la pub.
 - **Webradio** : ajouter une entrée dans `webradios` ; l'ordre de la liste est l'ordre d'affichage, les 4 premières sont visibles sur l'accueil.
+
+## Titres diffusés
+
+La playlist vient de l'API de la page [Derniers titres](https://www.radiolac.ch/derniers-titres/) de radiolac.ch (`api_query.php`). Pour la rafraîchir :
+
+```
+python outils/recuperer-titres.py      # 7 derniers jours complets -> contenus/titres.json (environ 5 min)
+python outils/preparer-titres.py       # pochettes -> img/titres/ et img-web/titres/, puis bloc playlist de data.js
+```
+
+Pour une heure donnée (réelle ou `?now=`), le site affiche ce qui a été diffusé le même jour de la semaine à la même heure dans ces données. Les titres sans pochette, ou avec le visuel générique de la radio, gardent la vignette de couleur.
 
 ## Images
 
@@ -87,7 +99,7 @@ Tout ce qui est dans le dépôt est public, y compris `contenus/`, `img/` (lourd
 
 ## Ce qui reste des exemples
 
-- **Titres diffusés** (accueil, player, playlist) : simulation à partir d'une liste fixe de titres ; en production, flux de titrage existant.
+- **Titres diffusés** (accueil, player, playlist) : vraie playlist d'une semaine, rejouée au même jour de la semaine et à la même heure ; en production, flux de titrage en direct.
 - **Épisodes et dates des podcasts** : titres d'épisodes et dates inventés (marqués EXEMPLE dans `data.js`) ; les chroniques et leurs visuels sont réels.
 - **Flux audio** : `streamUrl` vide dans `data.js`, le bouton En direct ouvre le player actuel de radiolac.ch. Les webradios ne sont pas jouables dans la démo.
 - **Publicité** : cadres de démonstration et habillage factice ; en production, les emplacements sont remplis par la régie.

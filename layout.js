@@ -152,13 +152,34 @@
     });
   }
 
-  /* ---------- Titres : simulation déterministe, un titre toutes les 4 min ---------- */
-  const SLOT = 4 * 60000;
-  const songAtSlot = (k) => D.songs[((k * 7) % D.songs.length + D.songs.length) % D.songs.length];
-  function songsBefore(date, n) {
-    const k0 = Math.floor(date.getTime() / SLOT);
-    return Array.from({ length: n }, (_, i) => ({ ...songAtSlot(k0 - i), at: new Date((k0 - i) * SLOT) }));
+  /* ---------- Titres : playlist réelle d'une semaine, rejouée au même jour et à la même heure ---------- */
+  // Chaque diffusion est placée sur une semaine type, en secondes depuis lundi 00:00
+  const WEEK = 7 * 86400;
+  const weekSec = (d) => dayIdx(d) * 86400 + d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+  const plays = Object.entries(D.playlist.days).flatMap(([day, list]) => {
+    const di = dayIdx(new Date(`${day}T12:00`));
+    return list.map(([sec, t]) => { const [artist, title, cover, len] = D.playlist.tracks[t]; return { w: di * 86400 + sec, artist, title, cover, len }; });
+  }).sort((a, b) => a.w - b.w);
+  // Titres diffusés avant une date, du plus récent au plus ancien, jusqu'à n titres ou jusqu'à `since`
+  function songsBefore(date, n, since = null) {
+    const ws = weekSec(date), out = [];
+    let i = plays.length - 1;
+    while (i >= 0 && plays[i].w > ws) i--;
+    for (let k = 0; k < plays.length && out.length < n; k++) {
+      const p = plays[(i - k + plays.length * 2) % plays.length];
+      const at = new Date(date.getTime() - (((ws - p.w) % WEEK + WEEK) % WEEK) * 1000);
+      if (since && at < since) break;
+      out.push({ ...p, at });
+    }
+    return out;
   }
+  const songCover = (s) => (s.cover ? img("titres", s.cover) : null);
+  // Le titre joue-t-il encore ? (durée connue, sinon 4 min ; une minute de marge pour les enchaînements)
+  // Faux pendant les émissions sans titrage (Studio Vinyles, Lac Fever) : on montre alors le dernier titre connu.
+  const onAir = (s, date = now()) => date - s.at < ((s.len || 240) + 60) * 1000;
+  // Période réellement couverte par les données, pour le bandeau
+  const playDays = Object.keys(D.playlist.days).sort();
+  const playRange = `${new Date(`${playDays[0]}T12:00`).getDate()} au ${dayMonth(new Date(`${playDays[playDays.length - 1]}T12:00`))}`;
 
   /* ---------- Carrousel : flèches, 4 visibles ---------- */
   function carousel(car, prev, next) {
@@ -183,7 +204,7 @@
   const socialLinks = (cls) => `<div class="${cls}">${D.socials.filter((s) => s.url).map((s) =>
     `<a href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Radio Lac sur ${esc(s.name)}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="${s.icon}"/></svg></a>`).join("")}</div>`;
 
-  let bar = "Maquette interne : contenus réels, titres diffusés et épisodes d'exemple";
+  let bar = `Maquette interne : contenus réels, playlist réelle du ${playRange} rejouée au même jour et à la même heure, épisodes d'exemple`;
   if (offset) bar += ` · Heure simulée : ${new Intl.DateTimeFormat("fr-CH", { weekday: "long", hour: "2-digit", minute: "2-digit" }).format(forced)}`;
 
   $("#site-header").outerHTML = `
@@ -268,9 +289,9 @@
 
   function renderDock() {
     const s = songsBefore(now(), 1)[0];
-    $("#dockCover").innerHTML = media(s.artist, null, "cover-sm");
+    $("#dockCover").innerHTML = media(s.artist, songCover(s), "cover-sm");
     $("#dockTitle").textContent = `${s.title} – ${s.artist}`;
-    $("#dockShow").textContent = `${liveShow().cur.name}, en direct`;
+    $("#dockShow").textContent = `${liveShow().cur.name}, en direct${onAir(s) ? "" : ` · dernier titre à ${hhmm(s.at)}`}`;
   }
 
   /* ---------- Lecture ---------- */
@@ -333,7 +354,7 @@
     if (location.hash === "#annotations") $("#annotToggle").click();
   }
 
-  window.RLUI = { $, $$, esc, pad, toMin, hhmm, minLabel, now, img, media, fit, dayIdx, daySlots, dayGrid, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, thumb, videoThumb, videoFrame, playVideo, songsBefore, SLOT, carousel, renderDock, initAnnotations };
+  window.RLUI = { $, $$, esc, pad, toMin, hhmm, minLabel, now, img, media, fit, dayIdx, daySlots, dayGrid, slotTime, liveShow, hostsOf, hostNames, episodes, episodeCard, thumb, videoThumb, videoFrame, playVideo, songsBefore, songCover, onAir, carousel, renderDock, initAnnotations };
   renderDock();
   setInterval(renderDock, 30000);
 })();
