@@ -75,9 +75,9 @@
     renderPodcasts(b.dataset.filter);
   }));
 
-  /* ---------- Vidéos : la plus récente en grand, les 3 suivantes en liste ---------- */
+  /* ---------- Vidéos : la plus récente en grand, les 4 suivantes en liste ---------- */
   // Cliquer une vidéo de la liste l'échange avec la grande et la lance
-  const vids = (D.videos || []).slice(0, 4);
+  const vids = (D.videos || []).slice(0, 5);
   function renderVideos(play) {
     if (!vids.length) { $("#videos").hidden = true; return; }
     $("#videoMain").innerHTML = `${videoFrame(vids[0])}<h3 class="v-title">${esc(vids[0].title)}</h3>`;
