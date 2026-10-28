@@ -5,3 +5,6 @@ img/
 outils/
 PROMPT-VSCODE.md
 radiolac-apercu-v2.png
+
+# Cache Python
+__pycache__/
