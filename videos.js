@@ -71,10 +71,5 @@ window.RL.videos = [
   "id": "xYD_f5mnMz4",
   "title": "Tondeuses robots et moustiques: les infos du jour",
   "date": "2026-10-28T08:59:17+00:00"
- },
- {
-  "id": "b34qryt8yos",
-  "title": "Lunettes connectées: faut-il mieux les encadrer? Les auditeurs réagissent",
-  "date": "2026-10-28T08:56:13+00:00"
  }
 ];
