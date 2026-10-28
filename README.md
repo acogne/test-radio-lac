@@ -47,7 +47,6 @@ Tout le contenu affiché est dans **`data.js`**, source unique pour le site. Il 
 | `apps` | `contenus/liens-app.txt` |
 | `playlist` (titres diffusés) | `contenus/titres.json`, récupéré sur radiolac.ch |
 | `chronicles` | noms des visuels de `img/podcasts/` |
-| `videos` | titres relevés via l'oEmbed YouTube |
 
 ## Modifier un contenu
 
@@ -57,7 +56,7 @@ Ouvrir `data.js` dans un éditeur de texte, modifier, enregistrer, recharger la 
 - **Animateurs d'une émission** : `hosts` dans `shows` (ids : `fabien`, `carole`, `fred`, `sophie`). La page Animateurs se met à jour seule.
 - **Article** : ajouter une entrée dans `articles` avec un `id` nouveau ; le texte (`body`) est du HTML simple (`<p>`, `<h2>`, `<h3>`, `<ul>`, `<strong>`, `<a>`). Les 3 premiers de la liste s'affichent sur l'accueil. Catégorie `"Concours"` → l'article apparaît aussi dans la page Concours.
 - **Podcast** : une chronique se déclare dans `chronicles` (émission, heure de diffusion ; `show: null` pour une chronique sans émission), un épisode dans `episodes` (`ago` : 0 = dernière diffusion, 1 = l'avant-dernière…). La date est calculée d'après la grille et l'heure courante.
-- **Vidéo** : ajouter `{ id, title, date }` en tête de `videos` (`id` = les 11 caractères après `youtu.be/`). La première s'affiche en grand sur l'accueil, les 3 suivantes en liste. La miniature vient de YouTube ; le lecteur (youtube-nocookie.com) n'est chargé qu'au clic.
+- **Vidéos** : rien à faire, elles viennent de la playlist YouTube (voir plus bas).
 - **Publicité** : tout est dans `ads` : les formats (`formats`), les largeurs d'écran où l'on passe en tablette puis en ordinateur (`breakpoints`), et pour chaque emplacement les pages, la position (`after` : l'élément après lequel il s'insère) et le format pour mobile, tablette et ordinateur. Chaque emplacement réserve sa hauteur, la page ne bouge pas au chargement de la pub.
 - **Webradio** : ajouter une entrée dans `webradios` ; l'ordre de la liste est l'ordre d'affichage, les 4 premières sont visibles sur l'accueil.
 
@@ -71,6 +70,14 @@ python outils/preparer-titres.py       # pochettes -> img/titres/ et img-web/tit
 ```
 
 Pour une heure donnée (réelle ou `?now=`), le site affiche ce qui a été diffusé le même jour de la semaine à la même heure dans ces données. Les titres sans pochette, ou avec le visuel générique de la radio, gardent la vignette de couleur.
+
+## Vidéos : mises à jour automatiquement
+
+`videos.js` (chargé par l'accueil et `videos.html`) est réécrit par la GitHub Action **« Vidéos YouTube »** (`.github/workflows/videos.yml`), toutes les 6 heures. Elle lit le flux RSS public de la playlist `PLIHhN1_l6IBU` (YouTube n'y met que les 15 vidéos les plus récentes) et ne commit que si la liste a changé. Si le flux est vide ou inaccessible, `videos.js` n'est pas touché.
+
+Forcer une mise à jour : sur GitHub, onglet **Actions** → **Vidéos YouTube** → **Run workflow**. En local : `python .github/scripts/maj-videos.py`.
+
+La plus récente s'affiche en grand sur l'accueil, les 3 suivantes en liste. La miniature vient de YouTube ; le lecteur (youtube-nocookie.com) n'est chargé qu'au clic.
 
 ## Images
 

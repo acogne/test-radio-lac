@@ -137,7 +137,7 @@
 
   /* ---------- Vidéos : toutes, en grille, lecture au clic ---------- */
   function videos() {
-    $("#videosList").innerHTML = D.videos.map((v) => `
+    $("#videosList").innerHTML = (D.videos || []).map((v) => `
       <article class="video-card">${videoFrame(v)}<h2 class="v-title">${esc(v.title)}</h2></article>`).join("");
   }
 

@@ -1300,15 +1300,8 @@ window.RL = {
     { slug: "rock-collector", name: "Rock Collector" }
   ],
 
-  // Vidéos YouTube, de la plus récente à la plus ancienne. Titres et dates
-  // relevés via l'oEmbed YouTube et la page de chaque vidéo (27.10.2026).
-  // En production : alimenté par la chaîne YouTube de Radio Lac.
-  videos: [
-    { id: "snwI88ugdEI", title: "La rentrée des classes avec le Cirque Knie", date: "2026-10-27" },
-    { id: "XOmPXFkFSD4", title: "La face cachée de l'info : fromages, arbres et football", date: "2026-10-27" },
-    { id: "jwPgoowVqM4", title: "Les meilleurs souvenirs de rentrée des auditeurs", date: "2026-10-27" },
-    { id: "A2mpWWTQr0A", title: "La rentrée des classes : souvenirs et anecdotes", date: "2026-10-27" }
-  ],
+  // Vidéos YouTube : dans videos.js, mis à jour automatiquement depuis la playlist
+  // (GitHub Action « Vidéos YouTube »).
 
   // Publicité : emplacements de DÉMONSTRATION, tout se règle ici.
   // Chaque emplacement donne son format pour mobile, tablette et ordinateur,
