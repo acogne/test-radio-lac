@@ -3,6 +3,11 @@
    toutes les 6 heures) : ne pas modifier à la main. */
 window.RL.videos = [
  {
+  "id": "KZ-dqplH47E",
+  "title": "Topless, fluo, épaulettes: les modes à faire revenir",
+  "date": "2026-10-29T11:04:25+00:00"
+ },
+ {
   "id": "vp7_RvcSgEI",
   "title": "Cirque Knie: les réponses du Duel du matin",
   "date": "2026-10-28T12:40:39+00:00"
@@ -71,10 +76,5 @@ window.RL.videos = [
   "id": "xYD_f5mnMz4",
   "title": "Tondeuses robots et moustiques: les infos du jour",
   "date": "2026-10-28T08:59:17+00:00"
- },
- {
-  "id": "b34qryt8yos",
-  "title": "Lunettes connectées: faut-il mieux les encadrer? Les auditeurs réagissent",
-  "date": "2026-10-28T08:56:13+00:00"
  }
 ];
