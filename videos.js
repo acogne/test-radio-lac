@@ -3,6 +3,41 @@
    toutes les 6 heures) : ne pas modifier à la main. */
 window.RL.videos = [
  {
+  "id": "VnU2cVl3Dhc",
+  "title": "Manu gagne des places pour le cirque Knie",
+  "date": "2026-10-29T15:51:39+00:00"
+ },
+ {
+  "id": "4CtebQp_kOI",
+  "title": "À Saint-Pierre-et-Miquelon, un village relocalisé",
+  "date": "2026-10-29T15:51:36+00:00"
+ },
+ {
+  "id": "i1LLELDft-E",
+  "title": "Waze n’affiche plus les contrôles de police en Suisse",
+  "date": "2026-10-29T15:51:33+00:00"
+ },
+ {
+  "id": "JpREbiDfWqI",
+  "title": "Waze retire le signalement des contrôles en Suisse",
+  "date": "2026-10-29T15:51:29+00:00"
+ },
+ {
+  "id": "auXMhjCrYtg",
+  "title": "Pilule du lendemain et dents: les innovations santé",
+  "date": "2026-10-29T15:51:12+00:00"
+ },
+ {
+  "id": "QPgoFQ7h-P0",
+  "title": "Les modes des années 70 et 80 à remettre au goût du jour",
+  "date": "2026-10-29T15:51:09+00:00"
+ },
+ {
+  "id": "bXGiVFP_s-Q",
+  "title": "Qui chante ça?: Maria gagne des billets pour Knie",
+  "date": "2026-10-29T15:50:53+00:00"
+ },
+ {
   "id": "KZ-dqplH47E",
   "title": "Topless, fluo, épaulettes: les modes à faire revenir",
   "date": "2026-10-29T11:04:25+00:00"
@@ -41,40 +76,5 @@ window.RL.videos = [
   "id": "whte4lVFWjU",
   "title": "Les Christophe célèbres dans Le duel du matin",
   "date": "2026-10-28T11:52:28+00:00"
- },
- {
-  "id": "Uoy0BUb9Ujs",
-  "title": "Anne Gallienne célèbre la ligne 38 des TPG",
-  "date": "2026-10-28T11:17:29+00:00"
- },
- {
-  "id": "WT_f-IaBNh8",
-  "title": "Maud gagne des places pour le Cirque Knie",
-  "date": "2026-10-28T09:20:14+00:00"
- },
- {
-  "id": "AIpyoXq6RZk",
-  "title": "Agents russes et train bruyant: l’info cachée",
-  "date": "2026-10-28T09:13:13+00:00"
- },
- {
-  "id": "8qrQxMX7fjw",
-  "title": "Les auditeurs imaginent leurs jeux de société favoris en version grandeur nature",
-  "date": "2026-10-28T09:09:32+00:00"
- },
- {
-  "id": "47k6Ycd15FI",
-  "title": "Quel jeu de société voir grandeur nature?",
-  "date": "2026-10-28T09:06:55+00:00"
- },
- {
-  "id": "m1v7O45Ymt4",
-  "title": "Genève, 33e ville la plus embouteillée au monde",
-  "date": "2026-10-28T09:03:46+00:00"
- },
- {
-  "id": "xYD_f5mnMz4",
-  "title": "Tondeuses robots et moustiques: les infos du jour",
-  "date": "2026-10-28T08:59:17+00:00"
  }
 ];
