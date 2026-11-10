@@ -3,6 +3,66 @@
    toutes les 6 heures) : ne pas modifier à la main. */
 window.RL.videos = [
  {
+  "id": "NYi2nHynk1I",
+  "title": "Qui chante ça?: Yvan gagne un pack VIP SailGP",
+  "date": "2026-11-10T16:05:22+00:00"
+ },
+ {
+  "id": "2KfDZQpMNf8",
+  "title": "Qui chante ça? Jenny gagne 50 francs avec Stéphane Eicher",
+  "date": "2026-11-10T14:46:42+00:00"
+ },
+ {
+  "id": "MnucoquFiZU",
+  "title": "Phobies insolites: canards, limaces et clowns",
+  "date": "2026-11-10T14:36:05+00:00"
+ },
+ {
+  "id": "WgYS59yJEso",
+  "title": "IA en justice et mission suisse vers Mercure",
+  "date": "2026-11-10T14:31:42+00:00"
+ },
+ {
+  "id": "maurDOSDWec",
+  "title": "Couple: que faudrait-il facturer à son partenaire?",
+  "date": "2026-11-10T14:27:31+00:00"
+ },
+ {
+  "id": "qKVl5nqGLXU",
+  "title": "1988: Céline Dion, Le Grand Bleu et Nuit de folie",
+  "date": "2026-11-10T14:19:46+00:00"
+ },
+ {
+  "id": "O7W_BlauBE4",
+  "title": "Qui chante ça?: Sylvie reconnaît Serge Lama",
+  "date": "2026-11-10T14:06:34+00:00"
+ },
+ {
+  "id": "eMvo4rELMY0",
+  "title": "1979: Walkman, Jean-Michel Jarre et My Sharona",
+  "date": "2026-11-10T13:56:57+00:00"
+ },
+ {
+  "id": "jh8vbXNEO5s",
+  "title": "Lac Léman: pourquoi ce nom a traversé les siècles",
+  "date": "2026-11-10T13:42:33+00:00"
+ },
+ {
+  "id": "choz5QY_ZMI",
+  "title": "Compostelle et neuroarchitecture: les infos cachées",
+  "date": "2026-11-10T13:33:50+00:00"
+ },
+ {
+  "id": "aT_eBUpaq9k",
+  "title": "Rue de Carouge: le gazon des rails déjà abîmé",
+  "date": "2026-11-10T13:28:41+00:00"
+ },
+ {
+  "id": "xSzQcN7C94k",
+  "title": "JO d’Albertville 1992, Bodyguard et Nirvana",
+  "date": "2026-11-10T13:10:17+00:00"
+ },
+ {
   "id": "VnU2cVl3Dhc",
   "title": "Manu gagne des places pour le cirque Knie",
   "date": "2026-10-29T15:51:39+00:00"
@@ -16,65 +76,5 @@ window.RL.videos = [
   "id": "i1LLELDft-E",
   "title": "Waze n’affiche plus les contrôles de police en Suisse",
   "date": "2026-10-29T15:51:33+00:00"
- },
- {
-  "id": "JpREbiDfWqI",
-  "title": "Waze retire le signalement des contrôles en Suisse",
-  "date": "2026-10-29T15:51:29+00:00"
- },
- {
-  "id": "auXMhjCrYtg",
-  "title": "Pilule du lendemain et dents: les innovations santé",
-  "date": "2026-10-29T15:51:12+00:00"
- },
- {
-  "id": "QPgoFQ7h-P0",
-  "title": "Les modes des années 70 et 80 à remettre au goût du jour",
-  "date": "2026-10-29T15:51:09+00:00"
- },
- {
-  "id": "bXGiVFP_s-Q",
-  "title": "Qui chante ça?: Maria gagne des billets pour Knie",
-  "date": "2026-10-29T15:50:53+00:00"
- },
- {
-  "id": "KZ-dqplH47E",
-  "title": "Topless, fluo, épaulettes: les modes à faire revenir",
-  "date": "2026-10-29T11:04:25+00:00"
- },
- {
-  "id": "vp7_RvcSgEI",
-  "title": "Cirque Knie: les réponses du Duel du matin",
-  "date": "2026-10-28T12:40:39+00:00"
- },
- {
-  "id": "af1__61vPds",
-  "title": "Radars: plus de 10'000 excès relevés près de Morges",
-  "date": "2026-10-28T12:34:19+00:00"
- },
- {
-  "id": "jZytWFhFA6g",
-  "title": "Qui chante ça?: Sarah gagne des invitations",
-  "date": "2026-10-28T12:08:14+00:00"
- },
- {
-  "id": "LPaeLK0tmWI",
-  "title": "Une IA pour aider les juges et le trafic de foin",
-  "date": "2026-10-28T12:04:22+00:00"
- },
- {
-  "id": "Asg-zyxJqek",
-  "title": "Téléphone fixe, coucou: ces objets du passé qui reviennent",
-  "date": "2026-10-28T12:00:59+00:00"
- },
- {
-  "id": "OjgZdozNE9I",
-  "title": "Le téléphone fixe revient pour éloigner les enfants des écrans",
-  "date": "2026-10-28T11:57:50+00:00"
- },
- {
-  "id": "whte4lVFWjU",
-  "title": "Les Christophe célèbres dans Le duel du matin",
-  "date": "2026-10-28T11:52:28+00:00"
  }
 ];
