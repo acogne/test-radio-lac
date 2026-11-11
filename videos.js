@@ -3,6 +3,46 @@
    toutes les 6 heures) : ne pas modifier à la main. */
 window.RL.videos = [
  {
+  "id": "uJZvRttuqNw",
+  "title": "Le Vatican consulte un expert suisse de l’IA",
+  "date": "2026-11-11T13:35:50+00:00"
+ },
+ {
+  "id": "fOFMfjs93aY",
+  "title": "Arnaques: une fausse Céline Dion escroque un Belge",
+  "date": "2026-11-11T13:28:00+00:00"
+ },
+ {
+  "id": "TjKAHgJsYjo",
+  "title": "Sylvie gagne ses places VIP pour le SailGP à Genève",
+  "date": "2026-11-11T13:21:04+00:00"
+ },
+ {
+  "id": "O1n-bNbVNfM",
+  "title": "1985: la neige du siècle et We Are the World",
+  "date": "2026-11-11T11:12:15+00:00"
+ },
+ {
+  "id": "xWYaWzgVrk8",
+  "title": "Céline gagne des invitations VIP pour le SailGP",
+  "date": "2026-11-11T11:08:07+00:00"
+ },
+ {
+  "id": "ZvstWZx4aX0",
+  "title": "Roger Federer ne sera plus l’emblème de Suisse Tourisme",
+  "date": "2026-11-11T09:00:01+00:00"
+ },
+ {
+  "id": "Y2t1K9YLGx0",
+  "title": "Maman sort danser: des soirées entre femmes en Romandie",
+  "date": "2026-11-11T08:52:12+00:00"
+ },
+ {
+  "id": "ngJvfV4oqAc",
+  "title": "Maman sort danser arrive pour la première fois à Sion",
+  "date": "2026-11-11T08:49:30+00:00"
+ },
+ {
   "id": "NYi2nHynk1I",
   "title": "Qui chante ça?: Yvan gagne un pack VIP SailGP",
   "date": "2026-11-10T16:05:22+00:00"
@@ -36,45 +76,5 @@ window.RL.videos = [
   "id": "O7W_BlauBE4",
   "title": "Qui chante ça?: Sylvie reconnaît Serge Lama",
   "date": "2026-11-10T14:06:34+00:00"
- },
- {
-  "id": "eMvo4rELMY0",
-  "title": "1979: Walkman, Jean-Michel Jarre et My Sharona",
-  "date": "2026-11-10T13:56:57+00:00"
- },
- {
-  "id": "jh8vbXNEO5s",
-  "title": "Lac Léman: pourquoi ce nom a traversé les siècles",
-  "date": "2026-11-10T13:42:33+00:00"
- },
- {
-  "id": "choz5QY_ZMI",
-  "title": "Compostelle et neuroarchitecture: les infos cachées",
-  "date": "2026-11-10T13:33:50+00:00"
- },
- {
-  "id": "aT_eBUpaq9k",
-  "title": "Rue de Carouge: le gazon des rails déjà abîmé",
-  "date": "2026-11-10T13:28:41+00:00"
- },
- {
-  "id": "xSzQcN7C94k",
-  "title": "JO d’Albertville 1992, Bodyguard et Nirvana",
-  "date": "2026-11-10T13:10:17+00:00"
- },
- {
-  "id": "VnU2cVl3Dhc",
-  "title": "Manu gagne des places pour le cirque Knie",
-  "date": "2026-10-29T15:51:39+00:00"
- },
- {
-  "id": "4CtebQp_kOI",
-  "title": "À Saint-Pierre-et-Miquelon, un village relocalisé",
-  "date": "2026-10-29T15:51:36+00:00"
- },
- {
-  "id": "i1LLELDft-E",
-  "title": "Waze n’affiche plus les contrôles de police en Suisse",
-  "date": "2026-10-29T15:51:33+00:00"
  }
 ];
