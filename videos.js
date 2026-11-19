@@ -3,6 +3,71 @@
    toutes les 6 heures) : ne pas modifier à la main. */
 window.RL.videos = [
  {
+  "id": "kPBhuwOpsgQ",
+  "title": "Gary Grenier: Dans les coulisses de Biopic",
+  "date": "2026-11-19T14:50:22+00:00"
+ },
+ {
+  "id": "zMCH1qprxTM",
+  "title": "Gary Grenier : dans les coulisses de Biopic",
+  "date": "2026-11-19T14:49:41+00:00"
+ },
+ {
+  "id": "K1Q-UKd2y8U",
+  "title": "La journée mondiale sans papier",
+  "date": "2026-11-19T14:46:36+00:00"
+ },
+ {
+  "id": "UcIVGzAu7XU",
+  "title": "Charge mentale: comment lâcher prise ? Les lumières de François Michalon",
+  "date": "2026-11-19T14:17:57+00:00"
+ },
+ {
+  "id": "jMoMK87s3as",
+  "title": "Tristan, 17 ans, stagiaire au sein du Meilleur des Réveils",
+  "date": "2026-11-19T14:17:16+00:00"
+ },
+ {
+  "id": "FrCf-lCp4dM",
+  "title": "Les automnales sont de retour à Palexpo",
+  "date": "2026-11-19T14:16:31+00:00"
+ },
+ {
+  "id": "7-VBl2Z_hD8",
+  "title": "Two Lanes Academy : l'expertise olympique accessible à tous",
+  "date": "2026-11-19T14:02:19+00:00"
+ },
+ {
+  "id": "UB0V6TpDlCE",
+  "title": "Kevin Veronese : les coulisses du Gault&Millau au restaurant",
+  "date": "2026-11-19T13:32:24+00:00"
+ },
+ {
+  "id": "OyZNZmtIHpA",
+  "title": "cette année là: 1980 !",
+  "date": "2026-11-19T13:27:42+00:00"
+ },
+ {
+  "id": "zZXo4ImvF5s",
+  "title": "La magie : un art en constante évolution",
+  "date": "2026-11-19T13:22:12+00:00"
+ },
+ {
+  "id": "3tF0zUeVhak",
+  "title": "La Chasse : réinventer la gastronomie genevoise",
+  "date": "2026-11-19T13:16:24+00:00"
+ },
+ {
+  "id": "gRmuo3EOcds",
+  "title": "Opération Carac Rose",
+  "date": "2026-11-19T11:16:25+00:00"
+ },
+ {
+  "id": "58IibS74Ovw",
+  "title": "Opératon Carac Rose",
+  "date": "2026-11-19T11:15:45+00:00"
+ },
+ {
   "id": "wxt3hRvc-t4",
   "title": "Moulage de Vulves: Les fondatrices de Baume",
   "date": "2026-11-18T15:39:16+00:00"
@@ -11,70 +76,5 @@ window.RL.videos = [
   "id": "7zYPFudX9rc",
   "title": "Les fondatrices de Baume (Part 1)",
   "date": "2026-11-18T15:38:36+00:00"
- },
- {
-  "id": "1TaVEBgrLr8",
-  "title": "L'ordre de naissance influence le caractère ...",
-  "date": "2026-11-18T15:31:55+00:00"
- },
- {
-  "id": "A-RMz9bAF-A",
-  "title": "Festival \"Les inoubliables\"",
-  "date": "2026-11-18T15:18:22+00:00"
- },
- {
-  "id": "JTI9KjuhMWI",
-  "title": "La semaine de la démocratie",
-  "date": "2026-11-18T15:10:46+00:00"
- },
- {
-  "id": "9lAvpNObor8",
-  "title": "la semaine de la démocratie",
-  "date": "2026-11-18T15:10:01+00:00"
- },
- {
-  "id": "shwQoN9iWE8",
-  "title": "Carole rend hommage à sa pharmacie",
-  "date": "2026-11-18T14:26:10+00:00"
- },
- {
-  "id": "ZBkG18ZPblQ",
-  "title": "Concours Genilem : Concrétisez votre projet",
-  "date": "2026-11-18T14:11:01+00:00"
- },
- {
-  "id": "fdVKflR4AD0",
-  "title": "Vos souvenirs de l'année 2003 !",
-  "date": "2026-11-18T14:10:11+00:00"
- },
- {
-  "id": "uJZvRttuqNw",
-  "title": "Le Vatican consulte un expert suisse de l’IA",
-  "date": "2026-11-11T13:35:50+00:00"
- },
- {
-  "id": "fOFMfjs93aY",
-  "title": "Arnaques: une fausse Céline Dion escroque un Belge",
-  "date": "2026-11-11T13:28:00+00:00"
- },
- {
-  "id": "TjKAHgJsYjo",
-  "title": "Sylvie gagne ses places VIP pour le SailGP à Genève",
-  "date": "2026-11-11T13:21:04+00:00"
- },
- {
-  "id": "O1n-bNbVNfM",
-  "title": "1985: la neige du siècle et We Are the World",
-  "date": "2026-11-11T11:12:15+00:00"
- },
- {
-  "id": "xWYaWzgVrk8",
-  "title": "Céline gagne des invitations VIP pour le SailGP",
-  "date": "2026-11-11T11:08:07+00:00"
- },
- {
-  "id": "ZvstWZx4aX0",
-  "title": "Roger Federer ne sera plus l’emblème de Suisse Tourisme",
-  "date": "2026-11-11T09:00:01+00:00"
  }
 ];
