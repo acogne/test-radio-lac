@@ -18,11 +18,6 @@ window.RL.videos = [
   "date": "2026-11-19T14:46:36+00:00"
  },
  {
-  "id": "UcIVGzAu7XU",
-  "title": "Charge mentale: comment lâcher prise ? Les lumières de François Michalon",
-  "date": "2026-11-19T14:17:57+00:00"
- },
- {
   "id": "jMoMK87s3as",
   "title": "Tristan, 17 ans, stagiaire au sein du Meilleur des Réveils",
   "date": "2026-11-19T14:17:16+00:00"
@@ -76,5 +71,10 @@ window.RL.videos = [
   "id": "7zYPFudX9rc",
   "title": "Les fondatrices de Baume (Part 1)",
   "date": "2026-11-18T15:38:36+00:00"
+ },
+ {
+  "id": "1TaVEBgrLr8",
+  "title": "L'ordre de naissance influence le caractère ...",
+  "date": "2026-11-18T15:31:55+00:00"
  }
 ];
